@@ -6,11 +6,6 @@ import Background from './components/Background';
 
 function App() {
   return (
-    //   <div style={{ textAlign: 'center', marginTop: '50px' }}>
-    //     <h1>Welcome to My First React Page! 🎉</h1>
-    //     <p>This is a simple React app using TypeScript.</p>
-    //   </div>
-    // );
     <Background>
       <Home />
     </Background>

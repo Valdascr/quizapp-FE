@@ -6,9 +6,12 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <h1>Start Quiz!!!</h1>
-      <Button label="Start" onClick={() => navigate("/quiz")} padding="20px 140px" />
+    <div className="">
+      <Button
+        label="Start Quiz!!!"
+        onClick={() => navigate('/quiz')}
+        ButtonType="start"
+      />
     </div>
   );
 };

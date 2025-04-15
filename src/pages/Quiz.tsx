@@ -7,26 +7,33 @@ import Status from './Status';
 const Quiz: React.FC = () => {
   const [questions, setQuestion] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
   useEffect(() => {
     fetchQuestions().then(setQuestion);
   }, []);
 
-  const handleAnswerSelect = (answer: string) => {
-    setSelectedAnswer(answer);
-    setIsCorrect(answer === questions[currentIndex].correctAnswer);
+  const handleAnswerSelect = (selectedIndex: number) => {
+    const correctIndex = questions[currentIndex].correct_answer_index;
+
+    console.log('pasirinktas', selectedIndex, '| Teisingas', correctIndex);
+    setSelectedAnswer(selectedIndex);
+    if (selectedIndex === correctIndex) {
+      setIsCorrect(true);
+    } else {
+      setIsCorrect(false);
+    }
   };
 
   const handlerNextQuestion = () => {
     setSelectedAnswer(null);
     setIsCorrect(null);
-    if (currentIndex + 1 < questions.length + 1) {
+    if (currentIndex + 1 < questions.length) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      // alert('Quiz completed');
-      <Status />;
+      console.log('quiz Done!');
+      // <Status />;
     }
   };
 
@@ -38,15 +45,15 @@ const Quiz: React.FC = () => {
           <QuestionComponent
             question={questions[currentIndex].question}
             answers={questions[currentIndex].answers}
-            correctAnswer={questions[currentIndex].correctAnswer}
+            correctAnswer={questions[currentIndex].correct_answer_index}
             onAnswerSelect={handleAnswerSelect}
             selectedAnswer={selectedAnswer}
             isCorrect={isCorrect}
           />
-          {selectedAnswer && (
+          {selectedAnswer !== null && (
             <button
               onClick={handlerNextQuestion}
-              className="mt-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+              className="mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
             >
               Next
             </button>

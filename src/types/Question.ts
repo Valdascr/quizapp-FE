@@ -2,7 +2,7 @@ export type Question = {
   id: number;
   question: string;
   answers: string[];
-  correctAnswer: string;
+  correct_answer_index: number;
 };
 
 export type Answer = {

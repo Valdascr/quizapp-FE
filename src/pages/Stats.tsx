@@ -1,6 +1,6 @@
 import React from "react";
 
-const Status: React.FC = () => {
+const Stats: React.FC = () => {
 
     return (
         <div>
@@ -9,4 +9,4 @@ const Status: React.FC = () => {
     );
 }
 
-export default Status;
+export default Stats;

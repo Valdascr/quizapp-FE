@@ -1,10 +1,27 @@
 import axios from 'axios';
 
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+export interface RegisterData {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+}
+
+export interface AuthResponse {
+  user: User;
+  token: string;
+}
+
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -21,15 +38,39 @@ export const fetchQuestions = async () => {
   }
 };
 
-export const login = async (email: string, password: string) => {
-  try {
-    await api.get('/sanctum.csrf-cookie');
-
-    const response = await api.post('/login', { email, password });
-    return response.data;
-  } catch (error: any) {
-    throw error.response?.data || { message: 'Login error?!' };
-  }
+export const login = async (
+  email: string,
+  password: string
+): Promise<{ user: User; token: string }> => {
+  const { data } = await api.post<{ user: User; token: string }>('/login', {
+    email,
+    password,
+  });
+  localStorage.setItem('authToken', data.token);
+  api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+  return data;
 };
+
+export const setAuthToken = (token?: string) => {
+  if (token) {
+    localStorage.setItem('authToken', token);
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  } else {
+    localStorage.removeItem('authToken');
+    delete api.defaults.headers.common['Authorization'];
+  }
+}
+
+export const register = async (payload: RegisterData): Promise<AuthResponse> => {
+  const { data } = await api.post<AuthResponse>('/register', payload);
+  setAuthToken(data.token);
+  console.log('data?!', data);
+  return data;
+}
+
+// export const fetchUser = async () => {
+//   const res = await api.get('/user');
+//   return res.data;
+// };
 
 

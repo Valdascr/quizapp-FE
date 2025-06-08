@@ -4,6 +4,7 @@ export interface User {
   id: number;
   name: string;
   email: string;
+  created_at: string;
 }
 
 export interface RegisterData {
@@ -48,10 +49,11 @@ export const login = async (
   });
   localStorage.setItem('authToken', data.token);
   api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+  console.log(data, 'login response data!?');
   return data;
 };
 
-export const setAuthToken = (token?: string) => {
+export const setAuthToken = (token?: string | null) => {
   if (token) {
     localStorage.setItem('authToken', token);
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -59,7 +61,7 @@ export const setAuthToken = (token?: string) => {
     localStorage.removeItem('authToken');
     delete api.defaults.headers.common['Authorization'];
   }
-}
+};
 
 export const register = async (payload: RegisterData): Promise<AuthResponse> => {
   const { data } = await api.post<AuthResponse>('/register', payload);
@@ -67,10 +69,4 @@ export const register = async (payload: RegisterData): Promise<AuthResponse> => 
   console.log('data?!', data);
   return data;
 }
-
-// export const fetchUser = async () => {
-//   const res = await api.get('/user');
-//   return res.data;
-// };
-
 

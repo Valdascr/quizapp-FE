@@ -21,7 +21,6 @@ const Quiz: React.FC = () => {
   const handleAnswerSelect = (selectedIndex: number) => {
     const correctIndex = questions[currentIndex].correct_answer_index;
 
-    // console.log('pasirinktas', selectedIndex, '| Teisingas', correctIndex);
     setSelectedAnswer(selectedIndex);
     if (selectedIndex === correctIndex) {
       setIsCorrect(true);
@@ -40,7 +39,7 @@ const Quiz: React.FC = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Quiz Page</h1>
+      {/* <h1 className="text-2xl font-bold mb-4">Quiz Page</h1> */}
       {questions.length > 0 ? (
         <>
           {!isQuizFinished ? (
@@ -53,14 +52,16 @@ const Quiz: React.FC = () => {
                 selectedAnswer={selectedAnswer}
                 isCorrect={isCorrect}
               />
-              {selectedAnswer !== null && (
-                <button
-                  onClick={handlerNextQuestion}
-                  className="mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                >
-                  Next
-                </button>
-              )}
+              <div style={{ minHeight: '50px' }} className="mt-2">
+                {selectedAnswer !== null && (
+                  <button
+                    onClick={handlerNextQuestion}
+                    className="mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                  >
+                    Next
+                  </button>
+                )}
+              </div>
             </>
           ) : (
             <div className="text-center">

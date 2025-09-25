@@ -1,45 +1,44 @@
 import React from "react";
+import { Question } from '../types/Question';
 
-type QuestionProps = {
-  question: string;
-  answers: string[];
-  correctAnswer: number;
-  onAnswerSelect: (answer: number) => void;
-  isCorrect: boolean | null;
+interface QuestionComponentProps {
+  question: Question;
   selectedAnswer: number | null;
-};
+  onAnswerSelect: (id: number) => void;
+  isCorrect: boolean | null;
+}
 
-const QuestionCard: React.FC<QuestionProps> = ({
+const QuestionComponent: React.FC<QuestionComponentProps> = ({
   question,
-  answers,
-  correctAnswer,
+  selectedAnswer,
   onAnswerSelect,
   isCorrect,
-  selectedAnswer,
 }) => {
   return (
-    <div className="px-20 py-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-xl font-semibold mb-3">{question}</h2>
-      <div className="flex flex-row gap-2">
-        {answers.map((answer, index) => {
-          let style =
-            'p-2 bg-sky-500 text-white rounded hover:bg-sky-400 transition';
-          if (selectedAnswer !== null) {
-            if (index === selectedAnswer) {
-              style = isCorrect
-                ? 'p-2 bg-green-500 text-white rounded'
-                : 'p-2 bg-red-500 text-white rounded';
-            }
-          }
+    <div className="bg-white shadow rounded p-4">
+      <h2 className="text-lg font-semibold mb-4">{question.question}</h2>
+      <div className="space-y-2">
+        {question.answers.map((answer) => {
+          const isSelected = selectedAnswer === answer.id;
+          const bgColor =
+            selectedAnswer === null
+              ? 'bg-gray-100'
+              : isSelected
+              ? answer.is_correct
+                ? 'bg-green-300'
+                : 'bg-red-300'
+              : answer.is_correct
+              ? 'bg-green-200'
+              : 'bg-gray-100';
 
           return (
             <button
-              key={index}
-              className={style}
-              onClick={() => onAnswerSelect(index)}
+              key={answer.id}
+              onClick={() => onAnswerSelect(answer.id)}
+              className={`w-full text-left p-3 rounded ${bgColor} hover:bg-gray-200 transition`}
               disabled={selectedAnswer !== null}
             >
-              {answer}
+              {answer.answer_text}
             </button>
           );
         })}
@@ -48,4 +47,4 @@ const QuestionCard: React.FC<QuestionProps> = ({
   );
 };
 
-export default QuestionCard;
+export default QuestionComponent;

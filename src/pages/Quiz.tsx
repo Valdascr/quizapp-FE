@@ -1,28 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import { Question } from '../types/Question';
-import { fetchQuestions } from '../services/api';
+import { fetchQuestions, getQuestionsByCategory } from '../services/api';
 import QuestionComponent from '../components/QuestionCard';
 import Button from '../components/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+
+// interface QuizProps {
+//   categoryId?: string;
+// }
 
 const Quiz: React.FC = () => {
+  const { categoryId } = useParams<{ categoryId: string }>();
   const [questions, setQuestion] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchQuestions().then(setQuestion);
-  }, []);
+  // useEffect(() => {
+  //   fetchQuestions().then(setQuestion);
+  // }, []);
 
-  const isQuizFinished = currentIndex >= questions.length;
+  useEffect(() => {
+    console.log('categoryId', categoryId);
+    if (categoryId) {
+      setCurrentIndex(0);
+      setQuestion([]);
+      getQuestionsByCategory(parseInt(categoryId))
+        .then((res) => setQuestion(res.data))
+        .catch((err) => console.error('Klaida gaunant klausimus:', err));
+    }
+  }, [categoryId]);
 
   const handleAnswerSelect = (selectedIndex: number) => {
-    const correctIndex = questions[currentIndex].correct_answer_index;
+    const correct = questions[currentIndex].answers.find((a) => a.is_correct);
+
+    setIsCorrect(correct?.id === selectedAnswer);
 
     setSelectedAnswer(selectedIndex);
-    if (selectedIndex === correctIndex) {
+    if (correct && selectedIndex === correct.id) {
       setIsCorrect(true);
     } else {
       setIsCorrect(false);
@@ -37,6 +53,8 @@ const Quiz: React.FC = () => {
     }
   };
 
+  const isQuizFinished = currentIndex >= questions.length;
+
   return (
     <div className="p-6">
       {/* <h1 className="text-2xl font-bold mb-4">Quiz Page</h1> */}
@@ -45,9 +63,9 @@ const Quiz: React.FC = () => {
           {!isQuizFinished ? (
             <>
               <QuestionComponent
-                question={questions[currentIndex].question}
-                answers={questions[currentIndex].answers}
-                correctAnswer={questions[currentIndex].correct_answer_index}
+                question={questions[currentIndex]}
+                // answers={questions[currentIndex].answers}
+                // correctAnswer={questions[currentIndex].correct_answer_index}
                 onAnswerSelect={handleAnswerSelect}
                 selectedAnswer={selectedAnswer}
                 isCorrect={isCorrect}
@@ -67,10 +85,10 @@ const Quiz: React.FC = () => {
             <div className="text-center">
               <p className="text-xl font-semibold mb-4">Quiz completed!</p>
               <button
-                onClick={() => navigate('/stats')}
+                onClick={() => navigate('/')}
                 className="py-4 px-24 text-2xl  bg-green-500 text-white rounded hover:bg-green-600"
               >
-                Go To Stats
+                Go To Next Quiz
               </button>
             </div>
           )}

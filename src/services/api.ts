@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Question } from '../types/Question';
 
 export interface User {
   id: number;
@@ -63,10 +64,17 @@ export const setAuthToken = (token?: string | null) => {
   }
 };
 
-export const register = async (payload: RegisterData): Promise<AuthResponse> => {
+export const register = async (
+  payload: RegisterData
+): Promise<AuthResponse> => {
   const { data } = await api.post<AuthResponse>('/register', payload);
   setAuthToken(data.token);
   console.log('data?!', data);
   return data;
-}
+};
+
+export const getCategories = () => api.get('/categories');
+
+export const getQuestionsByCategory = (categoryId: number) =>
+  api.get(`/categories/${categoryId}/questions`);
 

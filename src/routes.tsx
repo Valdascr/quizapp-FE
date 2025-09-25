@@ -18,12 +18,12 @@ const AppRoutes: React.FC = () => {
           <Route
             path="/"
             element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
+              // <ProtectedRoute>
+              <Home />
+              // </ProtectedRoute>
             }
           />
-          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/quiz/:categoryId" element={<Quiz />} />
           <Route path="/stats" element={<Stats />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

@@ -78,3 +78,17 @@ export const getCategories = () => api.get('/categories');
 export const getQuestionsByCategory = (categoryId: number) =>
   api.get(`/categories/${categoryId}/questions`);
 
+export const fetchStats = () => api.get('/results');
+
+export const submitQuizResult = (
+  categoryId: number,
+  score: number,
+  total: number
+) => {
+  return api.post('/results', {
+    category_id: categoryId,
+    score: score,
+    total: total,
+  });
+};
+

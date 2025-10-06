@@ -13,3 +13,10 @@ export interface Category {
   id: number;
   name: string;
 }
+
+export interface QuizResult {
+  userId: number;
+  category_id: number;
+  score: number;
+  total: number;
+}

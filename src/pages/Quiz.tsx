@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Question } from '../types/Question';
-import { fetchQuestions, getQuestionsByCategory } from '../services/api';
+import { getQuestionsByCategory, submitQuizResult } from '../services/api';
 import QuestionComponent from '../components/QuestionCard';
-import Button from '../components/Button';
 import { useNavigate, useParams } from 'react-router-dom';
-
-// interface QuizProps {
-//   categoryId?: string;
-// }
 
 const Quiz: React.FC = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
@@ -15,11 +10,8 @@ const Quiz: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [userAnswers, setUserAnswers] = useState<number[]>([]);
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   fetchQuestions().then(setQuestion);
-  // }, []);
 
   useEffect(() => {
     console.log('categoryId', categoryId);
@@ -55,17 +47,26 @@ const Quiz: React.FC = () => {
 
   const isQuizFinished = currentIndex >= questions.length;
 
+  useEffect(() => {
+    if (isQuizFinished && questions.length > 0) {
+      const correctCount = questions.filter((q, index) => {
+        const correctAnswer = q.answers.find((a) => a.is_correct);
+        return correctAnswer?.id === userAnswers[index];
+      }).length;
+      submitQuizResult(Number(categoryId), correctCount, questions.length)
+        .then(() => console.log('Result saves'))
+        .catch((err) => console.error('Got error send results:', err));
+    }
+  }, [isQuizFinished]);
+
   return (
     <div className="p-6">
-      {/* <h1 className="text-2xl font-bold mb-4">Quiz Page</h1> */}
       {questions.length > 0 ? (
         <>
           {!isQuizFinished ? (
             <>
               <QuestionComponent
                 question={questions[currentIndex]}
-                // answers={questions[currentIndex].answers}
-                // correctAnswer={questions[currentIndex].correct_answer_index}
                 onAnswerSelect={handleAnswerSelect}
                 selectedAnswer={selectedAnswer}
                 isCorrect={isCorrect}

@@ -10,7 +10,7 @@ interface Result {
   category: { id: number; name: string };
 }
 
-export default function Stats() {
+const Stats = () => {
   const [results, setResults] = useState<Result[]>([]);
 
   useEffect(() => {
@@ -41,4 +41,6 @@ export default function Stats() {
       )}
     </div>
   );
-}
+};
+
+export default Stats;

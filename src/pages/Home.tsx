@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { getCategories } from '../services/api';
-
-// const categories = [
-//   { id: 1, name: 'History' },
-//   { id: 2, name: 'Science' },
-//   { id: 3, name: 'Math' },
-//   { id: 4, name: 'Geography' },
-//   { id: 5, name: 'Programming' },
-//   { id: 6, name: 'Art' },
-// ];
 
 interface Category {
   id: number;

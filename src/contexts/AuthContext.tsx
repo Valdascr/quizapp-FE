@@ -33,8 +33,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const { user: loggedUser, token: authToken } = await login(email, password);
     setUser(loggedUser);
     setToken(authToken);
-    localStorage.setItem('authToken', authToken);
-    localStorage.setItem('authUser', JSON.stringify(loggedUser));
+    sessionStorage.setItem('authToken', authToken);
+    sessionStorage.setItem('authUser', JSON.stringify(loggedUser));
     setAuthToken(authToken);
   };
 

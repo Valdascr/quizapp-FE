@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
         </Link>
         <ul className="flex gap-8 ">
           <li>
-            <Link to="/quizzes" className="hover:text-gray-300">
+            <Link to="/" className="hover:text-gray-300">
               Quizzes
             </Link>
           </li>

@@ -20,3 +20,16 @@ export interface QuizResult {
   score: number;
   total: number;
 }
+
+export interface Result {
+  id: number;
+  score: number;
+  total: number;
+  completed_at: string;
+  category: { id: number; name: string };
+}
+
+export interface Category {
+  id: number;
+  name: string;
+}

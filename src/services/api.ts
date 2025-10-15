@@ -48,7 +48,7 @@ export const login = async (
     email,
     password,
   });
-  localStorage.setItem('authToken', data.token);
+  sessionStorage.setItem('authToken', data.token);
   api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
   console.log(data, 'login response data!?');
   return data;

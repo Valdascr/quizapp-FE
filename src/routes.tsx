@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import Profile from './pages/Profile/Profile';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -15,14 +16,7 @@ const AppRoutes: React.FC = () => {
       <Navbar />
       <Background>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/" element={<Home />} />
           <Route path="/quiz/:categoryId" element={<Quiz />} />
           <Route
             path="/stats"
@@ -34,6 +28,14 @@ const AppRoutes: React.FC = () => {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Background>
     </Router>

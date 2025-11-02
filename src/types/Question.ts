@@ -33,3 +33,18 @@ export interface Category {
   id: number;
   name: string;
 }
+
+export interface Stats {
+  totalQuizzes: number;
+  averageScore: number;
+  totalCorrect: number;
+  totalWrong: number;
+  lastPlayed: string | null;
+}
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  created_at: string;
+}

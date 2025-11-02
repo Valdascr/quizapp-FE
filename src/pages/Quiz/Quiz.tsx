@@ -33,7 +33,7 @@ const Quiz: React.FC = () => {
                 {selectedAnswer !== null && (
                   <button
                     onClick={handlerNextQuestion}
-                    className="mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                    className="mt-6 px-8 py-4 bg-white text-gray-700 rounded-2xl shadow-md font-semibold text-lg transition transform hover:-translate-y-0.5 hover:shadow-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Next
                   </button>
@@ -41,9 +41,9 @@ const Quiz: React.FC = () => {
               </div>
             </>
           ) : (
-            <QuizCompleted 
-            total={questions.length}
-            score={correctAnswersCount}
+            <QuizCompleted
+              total={questions.length}
+              score={correctAnswersCount}
             />
           )}
         </>

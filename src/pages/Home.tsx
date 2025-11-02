@@ -32,7 +32,7 @@ const Home: React.FC = () => {
             <button
               key={category.id}
               onClick={() => handleCategorySelect(category.id)}
-              className="p-6 bg-blue-100 hover:bg-blue-200 rounded shadow text-lg font-semibold transition"
+              className="w-full p-8 bg-white hover:bg-gray-100 text-gray-700 rounded-2xl shadow-lg font-semibold text-xl transition transform hover:-translate-y-1 hover:shadow-xl"
             >
               {category.name}
             </button>

@@ -48,7 +48,7 @@ export const login = async (
     email,
     password,
   });
-  sessionStorage.setItem('authToken', data.token);
+  localStorage.setItem('authToken', data.token);
   api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
   console.log(data, 'login response data!?');
   return data;
@@ -80,6 +80,17 @@ export const getQuestionsByCategory = (categoryId: number) =>
 
 export const fetchStats = () => api.get('/results');
 
+export const getResults = async () => {
+  try {
+    const res = await api.get('/results');
+    console.log(res.data);
+    return res.data;
+  } catch (error: any) {
+    console.error('Error fetching stats:', error);
+    throw new Error(error.response?.data?.message || 'Failed to fetch stats');
+  }
+};
+
 export const submitQuizResult = (
   categoryId: number,
   score: number,
@@ -91,4 +102,8 @@ export const submitQuizResult = (
     total: total,
   });
 };
+
+export const fetchUserById = (userId: number) => api.get(`/users/${userId}`);
+
+export const getUser = () => api.get(`/user`);
 

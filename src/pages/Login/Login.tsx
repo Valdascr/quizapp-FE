@@ -1,28 +1,15 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { login } from '../services/api';
-import { useAuth } from '../contexts/AuthContext';
+import React from "react";
+import { useLogin } from './useLogin';
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
-  const { signIn } = useAuth();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-
-    try {
-      // const { user } = await login(email, password);
-      await signIn(email, password);
-      // console.log('Logged user!?', user);
-      navigate('/');
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Login failed!?');
-    }
-  };
+  const  {
+    error,
+    password,
+    email,
+    setEmail,
+    setPassword,
+    handleSubmit
+  } = useLogin();
 
   return (
     <div className="flex items-center justify-center min-h-screen">

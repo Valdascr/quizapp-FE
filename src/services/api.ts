@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Question } from '../types/Question';
 
 export interface User {
   id: number;
@@ -106,4 +105,3 @@ export const submitQuizResult = (
 export const fetchUserById = (userId: number) => api.get(`/users/${userId}`);
 
 export const getUser = () => api.get(`/user`);
-

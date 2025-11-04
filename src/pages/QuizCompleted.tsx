@@ -1,11 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
-
-interface QuizCompletedParams {
-    total: number;
-    score: number;
-}
+import { QuizCompletedParams } from '../types/QuizTypes';
 
 const QuizCompleted: React.FC<QuizCompletedParams> = ({ total, score}) => {
 const navigate = useNavigate();

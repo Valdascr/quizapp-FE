@@ -1,8 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
-import { Question } from '../../types/Question';
-import { getQuestionsByCategory, submitQuizResult } from "../../services/api";
-
-
+import { Question } from '../../types/QuizTypes';
+import { getQuestionsByCategory, submitQuizResult } from '../../services/api';
 
 export const useQuiz = (categoryId: string | undefined) => {
   const [questions, setQuestion] = useState<Question[]>([]);

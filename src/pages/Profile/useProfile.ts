@@ -1,5 +1,5 @@
 import { useState, useEffect} from "react";
-import { User, Stats } from '../../types/Question';
+import { User, Stats } from '../../types/QuizTypes';
 import { fetchStats, fetchUserById } from '../../services/api';
 
 

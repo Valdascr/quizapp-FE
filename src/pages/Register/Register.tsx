@@ -1,32 +1,14 @@
-import React, { useState } from 'react';
-import { register, RegisterData } from '../services/api';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useRegister } from './useRegister';
 
 const Register: React.FC = () => {
-  const [form, setForm] = useState<RegisterData>({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-  });
-  const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
+  const {
+    form,
+    error,
+    handleChange,
+    handleSubmit
+  } = useRegister();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    try {
-      const { user } = await register(form);
-      console.log('register user?!:', user);
-      navigate('/');
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Registretion failed');
-    }
-  };
   return (
     <div className="flex items-center justify-center min-h-screen">
       <form

@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import Home from "./pages/Home";
+import Home from './pages/Home/Home';
 import Quiz from './pages/Quiz/Quiz';
-import Background from "./components/Background";
+import Background from './components/Background';
 import Stats from './pages/Stats/Stats';
 import Navbar from './components/Navbar';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import Profile from './pages/Profile/Profile';
 

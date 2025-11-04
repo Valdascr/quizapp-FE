@@ -29,11 +29,6 @@ export interface Result {
   category: { id: number; name: string };
 }
 
-export interface Category {
-  id: number;
-  name: string;
-}
-
 export interface Stats {
   totalQuizzes: number;
   averageScore: number;
@@ -47,4 +42,9 @@ export interface User {
   name: string;
   email: string;
   created_at: string;
+}
+
+export interface QuizCompletedParams {
+  total: number;
+  score: number;
 }

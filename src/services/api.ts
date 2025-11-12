@@ -31,7 +31,6 @@ const api = axios.create({
 export const fetchQuestions = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/questions`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching questions:', error);
@@ -49,7 +48,6 @@ export const login = async (
   });
   localStorage.setItem('authToken', data.token);
   api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
-  console.log(data, 'login response data!?');
   return data;
 };
 
@@ -68,7 +66,6 @@ export const register = async (
 ): Promise<AuthResponse> => {
   const { data } = await api.post<AuthResponse>('/register', payload);
   setAuthToken(data.token);
-  console.log('data?!', data);
   return data;
 };
 
@@ -82,7 +79,6 @@ export const fetchStats = () => api.get('/results');
 export const getResults = async () => {
   try {
     const res = await api.get('/results');
-    console.log(res.data);
     return res.data;
   } catch (error: any) {
     console.error('Error fetching stats:', error);

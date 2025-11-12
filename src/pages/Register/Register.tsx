@@ -2,12 +2,7 @@ import React from 'react';
 import { useRegister } from './useRegister';
 
 const Register: React.FC = () => {
-  const {
-    form,
-    error,
-    handleChange,
-    handleSubmit
-  } = useRegister();
+  const { form, error, success, handleChange, handleSubmit } = useRegister();
 
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -22,6 +17,11 @@ const Register: React.FC = () => {
         {error && (
           <div className="mb-4 text-red-600 text-sm text-center bg-red-50 p-2 rounded">
             {error}
+          </div>
+        )}
+        {success && (
+          <div className="mb-4 text-green-600 text-sm text-center">
+            {success}
           </div>
         )}
 

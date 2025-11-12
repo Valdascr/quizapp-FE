@@ -10,7 +10,6 @@ export const useQuiz = (categoryId: string | undefined) => {
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
 
   useEffect(() => {
-    console.log('categoryId', categoryId);
     if (categoryId) {
       setCurrentIndex(0);
       setQuestion([]);

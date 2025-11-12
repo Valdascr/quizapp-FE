@@ -1,5 +1,3 @@
-// pages/Stats.tsx
-import { useEffect, useState } from 'react';
 import { useStats } from './useStats';
 
 const Stats = () => {

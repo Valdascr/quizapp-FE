@@ -1,7 +1,7 @@
 # ⚛️ Quiz App Frontend (React + TypeScript)
 
 This is the **frontend** for the **Quiz App**, built with **React**, **TypeScript**, and **Tailwind CSS**.  
-It connects to the [Laravel API backend](https://github.com/Valdascr/quiz-app-backend) to allow users to register, log in, take quizzes, and view their personal statistics.
+It connects to the [Laravel API backend](https://github.com/Valdascr/quizapp-laravel-BE) to allow users to register, log in, take quizzes, and view their personal statistics.
 
 ---
 

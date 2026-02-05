@@ -19,7 +19,8 @@ export interface AuthResponse {
   token: string;
 }
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL =
+  (process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000') + '/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -30,7 +31,7 @@ const api = axios.create({
 
 export const fetchQuestions = async () => {
   try {
-    const response = await axios.get(`/questions`);
+    const response = await api.get(`/questions`);
     return Array.isArray(response.data) ? response.data : [];
   } catch (error) {
     console.error('Error fetching questions:', error);

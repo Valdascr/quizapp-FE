@@ -30,8 +30,8 @@ const api = axios.create({
 
 export const fetchQuestions = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/questions`);
-    return response.data;
+    const response = await axios.get(`/questions`);
+    return Array.isArray(response.data) ? response.data : [];
   } catch (error) {
     console.error('Error fetching questions:', error);
     return [];

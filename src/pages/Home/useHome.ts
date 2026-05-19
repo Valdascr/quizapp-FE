@@ -9,8 +9,14 @@ export const useHome = () => {
 
     useEffect(() => {
     getCategories()
-        .then((res) => setCategories(res.data))
-        .catch((err) => console.error('Category error!!?', err));
+      .then((res) => {
+        const data = res?.data;
+        setCategories(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => {
+        console.error('Category error!!?', err);
+        setCategories([]);
+      });
     }, []);
 
     const handleCategorySelect = (categoryId: number) => {
